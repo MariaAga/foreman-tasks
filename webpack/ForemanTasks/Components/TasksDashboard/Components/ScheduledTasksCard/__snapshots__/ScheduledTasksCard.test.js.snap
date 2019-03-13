@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ScheduledTasksCard render with minimal props 1`] = `
+<Card
+  accented={false}
+  aggregated={false}
+  aggregatedMini={false}
+  cardRef={null}
+  className="tasks-donut-card scheduled-tasks-card"
+  matchHeight={false}
+>
+  <CardTitle
+    className=""
+  >
+    Scheduled
+  </CardTitle>
+  <CardBody
+    className=""
+  >
+    <div
+      className="scheduled-data "
+    >
+      0
+      <Icon
+        name="clock-o"
+        type="fa"
+      />
+    </div>
+  </CardBody>
+</Card>
+`;
+
+exports[`ScheduledTasksCard render with props 1`] = `
+<Card
+  accented={false}
+  aggregated={false}
+  aggregatedMini={false}
+  cardRef={null}
+  className="tasks-donut-card scheduled-tasks-card"
+  matchHeight={false}
+>
+  <CardTitle
+    className=""
+  >
+    Scheduled
+  </CardTitle>
+  <CardBody
+    className=""
+  >
+    <div
+      className="scheduled-data "
+    >
+      0
+      <Icon
+        name="clock-o"
+        type="fa"
+      />
+    </div>
+  </CardBody>
+</Card>
+`;

@@ -1,0 +1,18 @@
+.tasks-dashboard {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+
+  .card-pf {
+    width: 300px;
+  }
+  // .tasks-donut-card {
+  //   display: flex;
+  //   justify-content: center;
+  // }
+  // .column {
+  //   display: flex;
+  //   flex-direction: column;
+  //   flex-basis: 100%;
+  //   flex: 1;
+  // }
+}
