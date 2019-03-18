@@ -1,10 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { withKnobs, number, text, select } from '@storybook/addon-knobs';
+import { withKnobs, number, text, object } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { withCardsDecorator } from '../../../../../stories/decorators';
-
-import { STOPPED_TASK_CARD_FOCUSED_ON_OPTIONS } from './StoppedTasksCardConstants';
 import StoppedTasksCard from './StoppedTasksCard';
 
 storiesOf('TasksDashboard', module)
@@ -12,24 +10,40 @@ storiesOf('TasksDashboard', module)
   .addDecorator(withCardsDecorator)
   .add('StoppedTasksCard', () => (
     <StoppedTasksCard
+      onTitleClick={action('Update query to error total')}
       error={{
-        total: number('errorTotal', 8),
-        last: number('errorLast', 1),
+        total: {
+          value: number('errorTotal', 8),
+          onClick: action('Update query to error total'),
+        },
+        last: {
+          value: number('errorLast', 1),
+          onClick: action('Update query to error last'),
+        },
       }}
       warning={{
-        total: number('warningTotal', 20),
-        last: number('warningLast', 2),
+        total: {
+          value: number('warningTotal', 20),
+          onClick: action('Update query to warning total'),
+        },
+        last: {
+          value: number('warningLast', 2),
+          onClick: action('Update query to warning last'),
+        },
       }}
       success={{
-        total: number('successTotal', 25),
-        last: number('successLast', 3),
+        total: {
+          value: number('successTotal', 25),
+          onClick: action('Update query to success total'),
+        },
+        last: {
+          value: number('successLast', 3),
+          onClick: action('Update query to success last'),
+        },
       }}
       timePeriod={text('timePeriod', '24h')}
-      focusedOn={select(
-        'focusedOn',
-        STOPPED_TASK_CARD_FOCUSED_ON_OPTIONS,
-        StoppedTasksCard.defaultProps.focusedOn
-      )}
-      updateQuery={action('Update Query')}
+      focusedOn={object('focusedOn', {
+        normal: true,
+      })}
     />
   ));

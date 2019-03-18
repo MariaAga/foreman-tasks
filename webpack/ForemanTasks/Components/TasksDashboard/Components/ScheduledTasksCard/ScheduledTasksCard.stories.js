@@ -1,10 +1,9 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { withKnobs, number, text, select } from '@storybook/addon-knobs';
+import { withKnobs, number, text, object } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { withCardsDecorator } from '../../../../../stories/decorators';
 
-import { SCHEDULED_TASK_CARD_FOCUSED_ON_OPTIONS } from './ScheduledTasksCardConstants';
 import ScheduledTasksCard from './ScheduledTasksCard';
 
 storiesOf('TasksDashboard', module)
@@ -21,12 +20,8 @@ storiesOf('TasksDashboard', module)
       <ScheduledTasksCard
         scheduled={number('errorLast', 1)}
         timePeriod={text('timePeriod', '24h')}
-        focusedOn={select(
-          'focusedOn',
-          SCHEDULED_TASK_CARD_FOCUSED_ON_OPTIONS,
-          ScheduledTasksCard.defaultProps.focusedOn
-        )}
-        updateQuery={action('Update Query')}
+        focusedOn={object('focusedOn', { normal: true })}
+        onClick={action('Update Query')}
       />
     </div>
   ));

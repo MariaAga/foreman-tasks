@@ -2,70 +2,46 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, Icon } from 'patternfly-react';
 import classNames from 'classnames';
-
-import {
-  SCHEDULED_TASK_CARD_FOCUSED_ON_OPTIONS_ARRAY,
-  SCHEDULED_TASK_CARD_FOCUSED_ON_OPTIONS,
-} from './ScheduledTasksCardConstants';
 import './ScheduledTasksCard.scss';
-import TasksDonutCard from '../TasksDonutCard/TasksDonutCard';
 
-class ScheduledTasksCard extends React.Component {
-  onClick = () => {
-    this.props.updateQuery({
-      state: 'scheduled',
-    });
-  };
-  render() {
-    const { className, scheduled, focusedOn } = this.props;
-
-    return (
-      <Card
-        className={classNames(
-          'tasks-donut-card',
-          'scheduled-tasks-card',
-          className
-        )}
+const ScheduledTasksCard = ({ className, scheduled, focusedOn, onClick }) => (
+  <Card
+    className={classNames(
+      'tasks-donut-card',
+      'scheduled-tasks-card',
+      className,
+      {
+        'selected-tasks-card': focusedOn && focusedOn.total,
+      }
+    )}
+  >
+    <Card.Title onClick={onClick}>Scheduled</Card.Title>
+    <Card.Body>
+      <div
+        className={classNames('scheduled-data', {
+          'not-focused': !(focusedOn && (focusedOn.total || focusedOn.normal)),
+        })}
+        onClick={onClick}
       >
-        <Card.Title>Scheduled</Card.Title>
-        <Card.Body>
-          <div
-            className={`scheduled-data ${
-              focusedOn === SCHEDULED_TASK_CARD_FOCUSED_ON_OPTIONS.NONE
-                ? 'not-focused'
-                : ''
-            }`}
-            onClick={this.onClick}
-          >
-            {scheduled}
-            <Icon type="fa" name="clock-o" />
-          </div>
-        </Card.Body>
-      </Card>
-    );
-  }
-}
-
-const filterTitle = obj => {
-  const { title, ...newObj } = obj;
-  return newObj;
-};
-
-ScheduledTasksCard.propTypes = filterTitle(TasksDonutCard.propTypes);
-ScheduledTasksCard.defaultProps = filterTitle(TasksDonutCard.defaultProps);
+        {scheduled}
+        <Icon type="fa" name="clock-o" />
+      </div>
+    </Card.Body>
+  </Card>
+);
 
 ScheduledTasksCard.propTypes = {
   className: PropTypes.string,
-  focusedOn: PropTypes.oneOf(SCHEDULED_TASK_CARD_FOCUSED_ON_OPTIONS_ARRAY),
+  focusedOn: PropTypes.shape({ total: PropTypes.bool, normal: PropTypes.bool }),
   scheduled: PropTypes.number,
-  updateQuery: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
 };
 
 ScheduledTasksCard.defaultProps = {
-  title: '',
   className: '',
-  focusedOn: SCHEDULED_TASK_CARD_FOCUSED_ON_OPTIONS.NORMAL,
+  focusedOn: {},
   scheduled: 0,
+  onClick: () => null,
 };
 
 export default ScheduledTasksCard;

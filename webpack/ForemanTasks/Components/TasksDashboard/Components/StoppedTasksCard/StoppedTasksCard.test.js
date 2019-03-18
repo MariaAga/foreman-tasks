@@ -1,5 +1,4 @@
 import { testComponentSnapshotsWithFixtures } from 'react-redux-test-utils';
-import { noop } from '../../../helpers';
 import StoppedTasksCard from './StoppedTasksCard';
 
 const createRequiredProps = () => ({
@@ -15,11 +14,10 @@ const createRequiredProps = () => ({
     total: 25,
     last: 3,
   },
-  updateQuery: noop,
 });
 
 const fixtures = {
-  'render with minimal props': { updateQuery: noop },
+  'render with minimal props': {},
   'render with props': { ...createRequiredProps() },
 };
 

@@ -1,11 +1,12 @@
 export const STOPPED_TASK_CARD_FOCUSED_ON_OPTIONS = {
   NORMAL: 'normal', // normal-mode
-  ERROR_TOTAL: 'error-total-stopped', // error total-mode
-  ERROR_LAST: 'error-last-stopped', // error last X mode
-  WARNING_TOTAL: 'warning-total-stopped', // warning total-mode
-  WARNING_LAST: 'warning-last-stopped', // warning last X mode
-  SUCCESS_TOTAL: 'success-total-stopped', // success total-mode
-  SUCCESS_LAST: 'success-last-stopped', // success last X mode
+  STOPPED_TOTAL: 'stopped-total', // total-mode,
+  ERROR_TOTAL: 'stopped-total-error', // error total-mode
+  ERROR_LAST: 'stopped-last-error', // error last X mode
+  WARNING_TOTAL: 'stopped-total-warning', // warning total-mode
+  WARNING_LAST: 'stopped-last-warning', // warning last X mode
+  SUCCESS_TOTAL: 'stopped-total-success', // success total-mode
+  SUCCESS_LAST: 'stopped-last-success', // success last X mode
   NONE: 'none', // unfocus-mode: another card is selected
 };
 
