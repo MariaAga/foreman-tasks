@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Card } from 'patternfly-react';
 import classNames from 'classnames';
+import { translate as __ } from 'foremanReact/common/I18n';
 import './StoppedTasksCard.scss';
 
 class StoppedTasksCard extends React.Component {
@@ -44,7 +45,7 @@ class StoppedTasksCard extends React.Component {
           }
         )}
       >
-        <Card.Title onClick={onTitleClick}>Stopped</Card.Title>
+        <Card.Title onClick={onTitleClick}>{__('Stopped')}</Card.Title>
         <Card.Body>
           <table className="table table-titles">
             <tbody>
@@ -101,16 +102,25 @@ StoppedTasksCard.propTypes = {
   }),
   onTitleClick: PropTypes.func,
   error: PropTypes.shape({
-    total: { value: PropTypes.number, onClick: PropTypes.func },
-    last: { value: PropTypes.number, onClick: PropTypes.func },
+    total: PropTypes.shape({
+      value: PropTypes.number,
+      onClick: PropTypes.func,
+    }),
+    last: PropTypes.shape({ value: PropTypes.number, onClick: PropTypes.func }),
   }),
   warning: PropTypes.shape({
-    total: { value: PropTypes.number, onClick: PropTypes.func },
-    last: { value: PropTypes.number, onClick: PropTypes.func },
+    total: PropTypes.shape({
+      value: PropTypes.number,
+      onClick: PropTypes.func,
+    }),
+    last: PropTypes.shape({ value: PropTypes.number, onClick: PropTypes.func }),
   }),
   success: PropTypes.shape({
-    total: { value: PropTypes.number, onClick: PropTypes.func },
-    last: { value: PropTypes.number, onClick: PropTypes.func },
+    total: PropTypes.shape({
+      value: PropTypes.number,
+      onClick: PropTypes.func,
+    }),
+    last: PropTypes.shape({ value: PropTypes.number, onClick: PropTypes.func }),
   }),
   timePeriod: PropTypes.string,
 };

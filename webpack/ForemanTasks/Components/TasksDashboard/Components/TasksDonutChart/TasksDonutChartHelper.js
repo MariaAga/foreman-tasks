@@ -1,3 +1,4 @@
+import { translate as __, sprintf } from 'foremanReact/common/I18n';
 import { TASKS_DONUT_CHART_FOCUSED_ON_OPTIONS } from './TasksDonutChartConstants';
 
 const { patternfly } = window;
@@ -21,12 +22,15 @@ export const createChartData = ({
 
   const data = {
     [lastKey]: {
-      name: `${last} Last ${timePeriod}`,
+      name: sprintf(__('%(last)s Last %(timePeriod)s'), { last, timePeriod }),
       value: last,
       onClick: onLastClick,
     },
     [olderKey]: {
-      name: `${older} Older >${timePeriod}`,
+      name: sprintf(__('%(older)s Older %(timePeriod)s'), {
+        older,
+        timePeriod,
+      }),
       value: older,
       onClick: onOlderClick,
     },
@@ -49,7 +53,7 @@ export const updateChartTitle = ({
   onMouseOver,
   onMouseOut,
 }) => {
-  patternfly.pfSetDonutChartTitle(chartElement, value, 'Total');
+  patternfly.pfSetDonutChartTitle(chartElement, value, __('Total'));
 
   window.d3
     .select(chartElement)

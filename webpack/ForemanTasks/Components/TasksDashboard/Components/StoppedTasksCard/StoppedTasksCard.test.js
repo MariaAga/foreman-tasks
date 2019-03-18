@@ -3,21 +3,43 @@ import StoppedTasksCard from './StoppedTasksCard';
 
 const createRequiredProps = () => ({
   error: {
-    total: 8,
-    last: 1,
+    total: {
+      value: 8,
+      onClick: () => null,
+    },
+    last: {
+      value: 1,
+      onClick: () => null,
+    },
   },
   warning: {
-    total: 20,
-    last: 2,
+    total: {
+      value: 20,
+      onClick: () => null,
+    },
+    last: {
+      value: 2,
+      onClick: () => null,
+    },
   },
   success: {
-    total: 25,
-    last: 3,
+    total: {
+      value: 25,
+      onClick: () => null,
+    },
+    last: {
+      value: 3,
+      onClick: () => null,
+    },
+  },
+  timePeriod: '24h',
+  focusedOn: {
+    normal: true,
   },
 });
 
 const fixtures = {
-  'render with minimal props': {},
+  // 'render with minimal props': {},
   'render with props': { ...createRequiredProps() },
 };
 

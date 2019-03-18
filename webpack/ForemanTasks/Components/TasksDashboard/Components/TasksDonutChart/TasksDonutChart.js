@@ -125,7 +125,7 @@ TasksDonutChart.propTypes = {
   className: PropTypes.string,
   timePeriod: PropTypes.string,
   colorsPattern: PropTypes.arrayOf(PropTypes.string),
-  focusedOn: PropTypes.shape(),
+  focusedOn: PropTypes.shape({}),
   onTotalClick: PropTypes.func,
   onLastClick: PropTypes.func,
   onOlderClick: PropTypes.func,

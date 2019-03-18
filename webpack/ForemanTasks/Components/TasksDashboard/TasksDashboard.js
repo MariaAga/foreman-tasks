@@ -135,34 +135,34 @@ TasksDashboard.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   focusedOn: PropTypes.shape({
-    running: {
+    running: PropTypes.shape({
       last: PropTypes.bool,
       older: PropTypes.bool,
       total: PropTypes.bool,
-    },
-    paused: {
+    }),
+    paused: PropTypes.shape({
       last: PropTypes.bool,
       older: PropTypes.bool,
       total: PropTypes.bool,
-    },
-    stopped: {
+    }),
+    stopped: PropTypes.shape({
       normal: PropTypes.bool,
-      error: {
+      error: PropTypes.shape({
         total: PropTypes.bool,
         last: PropTypes.bool,
-      },
-      warning: {
+      }),
+      warning: PropTypes.shape({
         total: PropTypes.bool,
         last: PropTypes.bool,
-      },
-      success: {
+      }),
+      success: PropTypes.shape({
         total: PropTypes.bool,
         last: PropTypes.bool,
-      },
-    },
-    scheduled: {
+      }),
+    }),
+    scheduled: PropTypes.shape({
       scheduled: PropTypes.bool,
-    },
+    }),
   }),
 };
 

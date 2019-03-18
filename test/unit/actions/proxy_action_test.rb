@@ -8,14 +8,18 @@ module ForemanTasks
       let(:secrets) do
         { 'logins' => { 'admin' => 'changeme', 'root' => 'toor' } }
       end
+      let(:batch_triggering) { false }
 
       before do
+        Support::DummyProxyAction.any_instance.stubs(:with_batch_triggering?).returns(batch_triggering)
         Support::DummyProxyAction.reset
+        RemoteTask.any_instance.stubs(:proxy).returns(Support::DummyProxyAction.proxy)
         @action = create_and_plan_action(Support::DummyProxyAction,
                                          Support::DummyProxyAction.proxy,
                                          'Proxy::DummyAction',
                                          'foo' => 'bar',
-                                         'secrets' => secrets)
+                                         'secrets' => secrets,
+                                         'use_batch_triggering' => batch_triggering)
         @action = run_action(@action)
       end
 
@@ -26,11 +30,25 @@ module ForemanTasks
                            { 'foo' => 'bar',
                              'secrets' => secrets,
                              'connection_options' =>
-                                 { 'retry_interval' => 15, 'retry_count' => 4 },
+                               { 'retry_interval' => 15, 'retry_count' => 4,
+                                 'proxy_batch_triggering' => batch_triggering },
+                             'use_batch_triggering' => batch_triggering,
                              'proxy_url' => 'proxy.example.com',
                              'proxy_action_name' => 'Proxy::DummyAction',
+                             "proxy_version" => { "major" => 1, "minor" => 21, "patch" => 0 },
                              'callback' => { 'task_id' => Support::DummyProxyAction.proxy.uuid, 'step_id' => @action.run_step_id } }]
           proxy_call.must_equal(expected_call)
+        end
+
+        describe 'with batch triggering' do
+          let(:batch_triggering) { true }
+          it 'create remote tasks for batch triggering' do
+            task = RemoteTask.first
+            task.state.must_equal 'new'
+            task.execution_plan_id.must_equal @action.execution_plan_id
+            task.operation.must_equal 'support'
+            task.remote_task_id.must_be :nil?
+          end
         end
       end
 

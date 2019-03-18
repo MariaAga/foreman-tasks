@@ -19,7 +19,7 @@ import { findDOMNode } from 'react-dom';
 
 let c3;
 
-class Chart extends React.Component {
+class C3Chart extends React.Component {
   componentDidMount() {
     c3 = require('c3');
     this.updateChart(this.props);
@@ -87,9 +87,9 @@ class Chart extends React.Component {
   }
 }
 
-Chart.displayName = 'C3Chart';
+C3Chart.displayName = 'C3Chart';
 
-Chart.propTypes = {
+C3Chart.propTypes = {
   data: PropTypes.object.isRequired,
   title: PropTypes.object,
   size: PropTypes.object,
@@ -125,4 +125,4 @@ Chart.propTypes = {
   onChartUpdate: PropTypes.func,
 };
 
-export default Chart;
+export default C3Chart;

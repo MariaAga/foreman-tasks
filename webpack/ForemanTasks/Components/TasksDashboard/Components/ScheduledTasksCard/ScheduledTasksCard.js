@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, Icon } from 'patternfly-react';
 import classNames from 'classnames';
+import { translate as __ } from 'foremanReact/common/I18n';
 import './ScheduledTasksCard.scss';
 
 const ScheduledTasksCard = ({ className, scheduled, focusedOn, onClick }) => (
@@ -15,7 +16,7 @@ const ScheduledTasksCard = ({ className, scheduled, focusedOn, onClick }) => (
       }
     )}
   >
-    <Card.Title onClick={onClick}>Scheduled</Card.Title>
+    <Card.Title onClick={onClick}>{__('Scheduled')}</Card.Title>
     <Card.Body>
       <div
         className={classNames('scheduled-data', {
