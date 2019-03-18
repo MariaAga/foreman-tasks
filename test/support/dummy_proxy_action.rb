@@ -2,6 +2,14 @@ require 'securerandom'
 
 module Support
   class DummyProxyAction < Actions::ProxyAction
+    class DummyProxyVersion
+      attr_reader :version
+
+      def initialize(version)
+        @version = { 'version' => version }
+      end
+    end
+
     class DummyProxy
       attr_reader :log, :task_triggered, :uuid
 
@@ -14,7 +22,7 @@ module Support
       def trigger_task(*args)
         @log[:trigger_task] << args
         @task_triggered.fulfill(true)
-        { 'task_id' => @uuid }
+        { 'task_id' => @uuid, 'result' => 'success' }
       end
 
       def cancel_task(*args)
@@ -24,12 +32,20 @@ module Support
       def url
         'proxy.example.com'
       end
+
+      def statuses
+        { version: DummyProxyVersion.new('1.21.0') }
+      end
     end
 
     class ProxySelector < ::ForemanTasks::ProxySelector
       def available_proxies
         { :global => [DummyProxyAction.proxy] }
       end
+    end
+
+    def proxy_operation_name
+      'support'
     end
 
     def proxy

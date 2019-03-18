@@ -1,9 +1,10 @@
 import React from 'react';
+import { translate as __ } from 'foremanReact/common/I18n';
 
 import TasksDonutCard from '../TasksDonutCard/TasksDonutCard';
 
 const PausedTasksCard = ({ ...props }) => (
-  <TasksDonutCard title="Paused" {...props} />
+  <TasksDonutCard title={__('Paused')} {...props} />
 );
 
 const filterTitle = obj => {

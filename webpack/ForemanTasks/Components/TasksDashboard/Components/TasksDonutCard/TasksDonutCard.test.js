@@ -1,5 +1,6 @@
 import { testComponentSnapshotsWithFixtures } from 'react-redux-test-utils';
 
+import { TASKS_DONUT_CHART_FOCUSED_ON_OPTIONS_ARRAY } from '../TasksDonutChart/TasksDonutChartConstants';
 import TasksDonutCard from './TasksDonutCard';
 
 const createRequiredProps = () => ({ last: 3, older: 5 });
@@ -15,7 +16,7 @@ const fixtures = {
   },
 };
 
-TasksDonutCard.focusedOnOptions.forEach(mode => {
+TASKS_DONUT_CHART_FOCUSED_ON_OPTIONS_ARRAY.forEach(mode => {
   fixtures[`render with focused-on ${mode}`] = {
     ...createRequiredProps(),
     focusedOn: mode,
