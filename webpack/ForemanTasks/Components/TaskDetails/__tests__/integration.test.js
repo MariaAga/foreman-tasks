@@ -13,7 +13,6 @@ describe('TaskDetails integration test', () => {
   beforeEach(() => {
     jest.useFakeTimers();
     const expectedIntervalId = 1;
-    jest.useFakeTimers();
     setInterval.mockImplementation(() => expectedIntervalId);
   });
   it('should flow', async () => {
