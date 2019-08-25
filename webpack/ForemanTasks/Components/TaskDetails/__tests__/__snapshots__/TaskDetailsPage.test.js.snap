@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TaskDetailsPage rendering render without Props 1`] = `
+<PageLayout
+  breadcrumbOptions={
+    Object {
+      "breadcrumbItems": Array [
+        Object {
+          "caption": "Tasks",
+          "url": "/foreman_tasks/tasks",
+        },
+        Object {
+          "caption": "N/A",
+          "url": "/foreman_tasks/tasks//details",
+        },
+      ],
+      "isSwitchable": true,
+      "resource": Object {
+        "nameField": "action",
+        "resourceUrl": "/foreman_tasks/api/tasks",
+        "switcherItemUrl": "/foreman_tasks/tasks/:id",
+      },
+    }
+  }
+  searchable={false}
+>
+  <TaskDetails
+    action=""
+    allowDangerousActions={false}
+    cancellable={false}
+    endedAt=""
+    error={Array []}
+    executionPlan={Object {}}
+    externalId=""
+    failedSteps={Array []}
+    fetchTaskDetails={[Function]}
+    hasSubTasks={false}
+    help=""
+    id=""
+    input={Array []}
+    label=""
+    locks={Array []}
+    output={Object {}}
+    parentTask=""
+    progress={0}
+    refetchTaskDetails={[Function]}
+    result="error"
+    resumable={false}
+    runningSteps={Array []}
+    showForceUnlockModal={false}
+    showUnlockModal={false}
+    startAt=""
+    startBefore=""
+    startedAt=""
+    state=""
+    taskReload={false}
+    taskReloadStart={[Function]}
+    taskReloadStop={[Function]}
+    timeoutId={null}
+    toggleForceUnlockModal={[Function]}
+    toggleUnlockModal={[Function]}
+    username=""
+    usernamePath=""
+  />
+</PageLayout>
+`;

@@ -103,7 +103,7 @@ module ForemanTasks
 
     def task_breadcrumb_item(task, active = false)
       item = { :caption => format_task_input(task) }
-      item[:url] = url_for(foreman_tasks_task_path(task.id)) unless active
+      item[:url] = "/foreman_tasks/tasks/%s" % [task.id] unless active
       item
     end
 

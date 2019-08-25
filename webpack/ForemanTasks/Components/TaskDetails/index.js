@@ -1,6 +1,6 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import TaskDetails from './TaskDetails';
+import TaskDetailsPage from './TaskDetailsPage';
 import * as actions from './TaskDetailsActions';
 import reducer from './TaskDetailsReducer';
 import {
@@ -74,4 +74,4 @@ export const reducers = { taskDetails: reducer };
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TaskDetails);
+)(TaskDetailsPage);

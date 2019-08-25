@@ -83,13 +83,42 @@ exports[`TaskDetails rendering render without Props 1`] = `
       title="Raw"
     >
       <Raw
+        action=""
+        allowDangerousActions={false}
+        cancellable={false}
         endedAt=""
+        error={Array []}
+        executionPlan={Object {}}
         externalId=""
+        failedSteps={Array []}
+        fetchTaskDetails={[Function]}
+        hasSubTasks={false}
+        help=""
         id=""
         input={Array []}
         label=""
+        locks={Array []}
         output={Object {}}
+        parentTask=""
+        progress={0}
+        refetchTaskDetails={[Function]}
+        result="error"
+        resumable={false}
+        runningSteps={Array []}
+        showForceUnlockModal={false}
+        showUnlockModal={false}
+        startAt=""
+        startBefore=""
         startedAt=""
+        state=""
+        taskReload={false}
+        taskReloadStart={[Function]}
+        taskReloadStop={[Function]}
+        timeoutId={null}
+        toggleForceUnlockModal={[Function]}
+        toggleUnlockModal={[Function]}
+        username=""
+        usernamePath=""
       />
     </Tab>
   </Uncontrolled(Tabs)>

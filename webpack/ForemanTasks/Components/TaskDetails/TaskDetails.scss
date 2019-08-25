@@ -1,4 +1,14 @@
 .task-details-react {
+  .param-name {
+    display: inline-block;
+    width: 10em;
+  }
+
+  .task-details pre {
+    white-space: pre;
+    word-break: normal;
+  }
+
   .progress-label-top-right {
     font-size: 11px;
     text-align: right;

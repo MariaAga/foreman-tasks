@@ -8,7 +8,7 @@ Foreman::Application.routes.draw do
       end
     end
 
-    resources :tasks, :only => [:index, :show] do
+    resources :tasks, :only => [:index] do
       collection do
         get 'auto_complete_search'
         get '/summary/:recent_timeframe', action: 'summary'
@@ -25,7 +25,7 @@ Foreman::Application.routes.draw do
     end
 
     match '/ex_tasks' => 'react#index', :via => [:get]
-    match '/ex_tasks/:id' => 'react#index', :via => [:get]
+    match '/tasks/:id' => 'react#index', :via => [:get]
 
     namespace :api do
       resources :recurring_logics, :only => [:index, :show, :update] do

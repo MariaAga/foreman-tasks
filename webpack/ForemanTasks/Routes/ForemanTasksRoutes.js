@@ -1,6 +1,6 @@
 import React from 'react';
 import IndexTasks from './IndexTasks';
-import ShowTask from './ShowTask';
+import TaskDetailsPage from '../Components/TaskDetails';
 
 const ForemanTasksRoutes = {
   indexTasks: {
@@ -9,8 +9,8 @@ const ForemanTasksRoutes = {
     render: props => <IndexTasks {...props} />,
   },
   showTask: {
-    path: '/foreman_tasks/ex_tasks/:id',
-    render: props => <ShowTask {...props} />,
+    path: '/foreman_tasks/tasks/:id',
+    render: props => <TaskDetailsPage {...props} />,
   },
 };
 

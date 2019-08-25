@@ -31,8 +31,7 @@
      <% @tasks.each do |task| %>
        <tr>
          <td class="task-id ellipsis">
-           <%= link_to_if_authorized(format_task_input(task),
-                                     hash_for_foreman_tasks_task_path(:id => task)) %>
+         <a href=<%= "/foreman_tasks/tasks/%s" % [task.id] %>><%=task.action%></a>
          </td>
          <td class="ellipsis"><%= task.state %> <%= _("(Disabled)") if task.frozen %></td>
          <td class="ellipsis"><%= task.result %></td>

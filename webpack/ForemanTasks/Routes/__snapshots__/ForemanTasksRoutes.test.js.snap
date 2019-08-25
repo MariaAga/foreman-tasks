@@ -11,9 +11,9 @@ Object {
     />,
   },
   "showTask": Object {
-    "path": "/foreman_tasks/ex_tasks/:id",
+    "path": "/foreman_tasks/tasks/:id",
     "render": [Function],
-    "renderResult": <ShowTask
+    "renderResult": <Connect(TaskDetailsPage)
       some="props"
     />,
   },
