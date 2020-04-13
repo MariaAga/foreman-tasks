@@ -14,15 +14,24 @@ import { resolveSearchQuery, addSearchToURL } from './TasksTableHelpers';
 import { ConfirmationModals } from './Components/ConfirmationModals';
 import {
   TASKS_SEARCH_PROPS,
-  CANCEL_SELECTED_CONFIRM_MODAL_ID,
-  RESUME_SELECTED_CONFIRM_MODAL_ID,
-  RESUME_CONFIRM_MODAL_ID,
-  CANCEL_CONFIRM_MODAL_ID,
+  CANCEL_SELECTED,
+  RESUME_SELECTED,
+  RESUME,
+  CANCEL,
+  CONFIRM_MODAL,
 } from './TasksTableConstants';
 import { ActionSelectButton } from './Components/ActionSelectButton';
 import './TasksTablePage.scss';
 
-const TasksTablePage = ({ getBreadcrumbs, history, clicked, createHeader, ...props }) => {
+const TasksTablePage = ({
+  getBreadcrumbs,
+  history,
+  clicked,
+  createHeader,
+  modalID,
+  openModalAction,
+  ...props
+}) => {
   const url = history.location.pathname + history.location.search;
   const uriQuery = getURIQuery(url);
   const onSearch = searchQuery => {
@@ -41,17 +50,6 @@ const TasksTablePage = ({ getBreadcrumbs, history, clicked, createHeader, ...pro
     }));
   };
 
-  const modalProps = {
-    cancelSelectedModal: useForemanModal({
-      id: CANCEL_SELECTED_CONFIRM_MODAL_ID,
-    }),
-    resumeSelectedModal: useForemanModal({
-      id: RESUME_SELECTED_CONFIRM_MODAL_ID,
-    }),
-    cancelModal: useForemanModal({ id: CANCEL_CONFIRM_MODAL_ID }),
-    resumeModal: useForemanModal({ id: RESUME_CONFIRM_MODAL_ID }),
-  };
-
   const {
     bulkCancel,
     bulkResume,
@@ -60,10 +58,10 @@ const TasksTablePage = ({ getBreadcrumbs, history, clicked, createHeader, ...pro
     parentTaskID,
   } = props;
   const tasksActions = {
-    cancelSelectedTasks: () => {
+    [CANCEL_SELECTED]: () => {
       bulkCancel({ selected: getSelectedTasks(), url, parentTaskID });
     },
-    cancelTask: () => {
+    [CANCEL]: () => {
       cancelTask({
         taskId: clicked.taskId,
         taskName: clicked.taskName,
@@ -71,10 +69,10 @@ const TasksTablePage = ({ getBreadcrumbs, history, clicked, createHeader, ...pro
         parentTaskID,
       });
     },
-    resumeSelectedTasks: () => {
+    [RESUME_SELECTED]: () => {
       bulkResume({ selected: getSelectedTasks(), url, parentTaskID });
     },
-    resumeTask: () => {
+    [RESUME]: () => {
       resumeTask({
         taskId: clicked.taskId,
         taskName: clicked.taskName,
@@ -84,13 +82,22 @@ const TasksTablePage = ({ getBreadcrumbs, history, clicked, createHeader, ...pro
     },
   };
 
+  const { setModalOpen, setModalClosed } = useForemanModal({
+    id: CONFIRM_MODAL,
+  });
+  const openModal = id => {
+    openModalAction(id, setModalOpen);
+  };
+
   return (
     <div className="tasks-table-wrapper">
       <ConfirmationModals
         tasksActions={tasksActions}
         selectedRowsLen={props.selectedRows.length}
-        modalProps={modalProps}
+        setModalClosed={setModalClosed}
+        modalID={modalID}
       />
+
       <PageLayout
         searchable
         searchProps={TASKS_SEARCH_PROPS}
@@ -107,8 +114,8 @@ const TasksTablePage = ({ getBreadcrumbs, history, clicked, createHeader, ...pro
             />
             <ActionSelectButton
               disabled={props.selectedRows.length < 1}
-              onCancel={modalProps.cancelSelectedModal.setModalOpen}
-              onResume={modalProps.resumeSelectedModal.setModalOpen}
+              onCancel={() => openModal(CANCEL_SELECTED)}
+              onResume={() => openModal(RESUME_SELECTED)}
             />
           </React.Fragment>
         }
@@ -117,7 +124,7 @@ const TasksTablePage = ({ getBreadcrumbs, history, clicked, createHeader, ...pro
           <TasksDashboard history={history} parentTaskID={props.parentTaskID} />
         }
       >
-        <TasksTable history={history} {...props} modalProps={modalProps} />
+        <TasksTable history={history} {...props} openModalAction={openModal} />
       </PageLayout>
     </div>
   );
@@ -142,6 +149,8 @@ TasksTablePage.propTypes = {
     taskName: PropTypes.string,
     parentTaskID: PropTypes.string,
   }),
+  modalID: PropTypes.string,
+  openModalAction: PropTypes.func.isRequired,
 };
 
 TasksTablePage.defaultProps = {
@@ -151,6 +160,7 @@ TasksTablePage.defaultProps = {
   parentTaskID: null,
   clicked: {},
   createHeader: () => __('Tasks'),
+  modalID: '',
 };
 
 export default TasksTablePage;

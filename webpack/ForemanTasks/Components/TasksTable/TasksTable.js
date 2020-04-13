@@ -23,7 +23,7 @@ const TasksTable = ({
   selectRow,
   unselectRow,
   openClickedModal,
-  modalProps,
+  openModalAction,
 }) => {
   const url = history.location.pathname + history.location.search;
   const uriQuery = getURIQuery(url);
@@ -85,14 +85,14 @@ const TasksTable = ({
       openClickedModal({
         taskId,
         taskName,
-        setModalOpen: modalProps.cancelModal.setModalOpen,
+        setModalOpen: openModalAction,
       });
     },
     resumeTask: (taskId, taskName) => {
       openClickedModal({
         taskId,
         taskName,
-        setModalOpen: modalProps.resumeModal.setModalOpen,
+        setModalOpen: openModalAction,
       });
     },
   };
@@ -139,12 +139,7 @@ TasksTable.propTypes = {
   unselectAllRows: PropTypes.func.isRequired,
   selectRow: PropTypes.func.isRequired,
   unselectRow: PropTypes.func.isRequired,
-  modalProps: PropTypes.shape({
-    cancelSelectedModal: PropTypes.object,
-    resumeSelectedModal: PropTypes.object,
-    cancelModal: PropTypes.object,
-    resumeModal: PropTypes.object,
-  }).isRequired,
+  openModalAction: PropTypes.func.isRequired,
 };
 
 TasksTable.defaultProps = {
