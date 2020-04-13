@@ -21,6 +21,8 @@ export const TasksTableQueryReducer = (state = initialState, action) => {
     response || {};
   const ACTION_TYPES = createTableActionTypes(TASKS_TABLE_ID);
   switch (type) {
+    case 'UPDATE_MODAL':
+      return state.set('modalID', payload.modalID);
     case ACTION_TYPES.SUCCESS:
       return Immutable.merge(state, {
         itemCount: subtotal,

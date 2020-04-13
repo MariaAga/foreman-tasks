@@ -1,28 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { CancelButton } from './CancelButton';
-import { ResumeButton } from './ResumeButton';
+import { translate as __ } from 'foremanReact/common/I18n';
+import { ActionButtons } from 'foremanReact/components/common/ActionButtons/ActionButtons';
 
 export const ActionButton = ({ id, name, availableActions, taskActions }) => {
   const isResume = availableActions.resumable;
+  const isCancel = availableActions.cancellable;
+  const buttons = [];
   if (isResume) {
-    return (
-      <ResumeButton
-        id={id}
-        name={name}
-        onClick={taskActions.resumeTask}
-        disabled={false}
-      />
-    );
+    buttons.push({
+      title: __('Resume'),
+      action: {
+        disabled: !isResume,
+        onClick: () => taskActions.resumeTask(id, name),
+      },
+    });
+  } else {
+    buttons.push({
+      title: __('Cancel'),
+      action: {
+        disabled: !isCancel,
+        onClick: () => taskActions.cancelTask(id, name),
+      },
+    });
   }
-  return (
-    <CancelButton
-      id={id}
-      name={name}
-      disabled={!availableActions.cancellable}
-      onClick={taskActions.cancelTask}
-    />
-  );
+  return <ActionButtons buttons={buttons} />;
 };
 
 ActionButton.propTypes = {
@@ -35,5 +37,6 @@ ActionButton.propTypes = {
   taskActions: PropTypes.shape({
     cancelTask: PropTypes.func,
     resumeTask: PropTypes.func,
+    forceCancelTask: PropTypes.func,
   }).isRequired,
 };

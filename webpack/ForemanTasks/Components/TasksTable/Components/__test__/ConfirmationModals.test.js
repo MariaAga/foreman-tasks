@@ -1,15 +1,11 @@
 import { testComponentSnapshotsWithFixtures } from '@theforeman/test';
-
+import { CANCEL_SELECTED } from '../../TasksTableConstants';
 import { ConfirmationModals } from '../ConfirmationModals';
 
 const fixtures = {
   'renders ConfirmationModals': {
-    modalProps: {
-      cancelSelectedModal: { setModalClosed: jest.fn() },
-      resumeSelectedModal: { setModalClosed: jest.fn() },
-      cancelModal: { setModalClosed: jest.fn() },
-      resumeModal: { setModalClosed: jest.fn() },
-    },
+    setModalClosed: jest.fn(),
+    modalID: CANCEL_SELECTED,
     selectedRowsLen: 7,
     tasksActions: {
       cancelTask: jest.fn(),

@@ -14,6 +14,7 @@ import {
   TASKS_RESUME_SUCCESS,
   TASKS_RESUME_FAILURE,
 } from './TasksTableConstants';
+import { cancelTaskRequest, resumeTaskRequest } from '../TaskActions';
 import { getApiPathname } from './TasksTableHelpers';
 import { fetchTasksSummary } from '../TasksDashboard/TasksDashboardActions';
 
@@ -31,31 +32,6 @@ export const cancelTask = ({
   dispatch(fetchTasksSummary(getURIQuery(url).time, parentTaskID));
 };
 
-export const cancelTaskRequest = (id, name) => async dispatch => {
-  dispatch(
-    addToast({
-      type: 'info',
-      message: `${__('Trying to cancel')} "${name}" ${__('task')}`,
-    })
-  );
-  try {
-    await API.post(`/foreman_tasks/tasks/${id}/cancel`);
-    dispatch(
-      addToast({
-        type: 'success',
-        message: `"${name}" ${__('Task cancelled')}`,
-      })
-    );
-  } catch ({ response }) {
-    dispatch(
-      addToast({
-        type: 'error',
-        message: `"${name}" ${__('Task cannot be cancelled at the moment.')}`,
-      })
-    );
-  }
-};
-
 export const resumeTask = ({
   taskId,
   taskName,
@@ -65,25 +41,6 @@ export const resumeTask = ({
   await dispatch(resumeTaskRequest(taskId, taskName));
   dispatch(getTableItems(url));
   dispatch(fetchTasksSummary(getURIQuery(url).time), parentTaskID);
-};
-
-export const resumeTaskRequest = (id, name) => async dispatch => {
-  try {
-    await API.post(`/foreman_tasks/tasks/${id}/resume`);
-    dispatch(
-      addToast({
-        type: 'success',
-        message: __(`"${name}" ${__('Task execution was resumed')}`),
-      })
-    );
-  } catch ({ response }) {
-    dispatch(
-      addToast({
-        type: 'error',
-        message: __(`Task "${name}" has to be resumable.`),
-      })
-    );
-  }
 };
 
 export const selectAllRows = results => ({
@@ -201,5 +158,13 @@ export const openClickedModal = ({ taskId, taskName, setModalOpen }) => {
   return {
     type: UPDATE_CLICKED,
     payload: { clicked: { taskId, taskName } },
+  };
+};
+
+export const openModalAction = (modalID, setModalOpen) => {
+  setModalOpen();
+  return {
+    type: 'UPDATE_MODAL',
+    payload: { modalID },
   };
 };

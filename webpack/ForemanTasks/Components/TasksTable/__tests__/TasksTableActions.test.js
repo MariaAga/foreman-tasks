@@ -4,9 +4,7 @@ import { TASKS_TABLE_ID } from '../TasksTableConstants';
 import {
   getTableItems,
   cancelTask,
-  cancelTaskRequest,
   resumeTask,
-  resumeTaskRequest,
   bulkCancel,
   bulkResume,
 } from '../TasksTableActions';
@@ -31,26 +29,7 @@ const task = {
 
 const fixtures = {
   'should cancelTask': () => cancelTask({ ...taskInfo, url: 'some-url' }),
-  'should cancelTaskRequest and succeed': () =>
-    cancelTaskRequest('some-id', 'some-name'),
-  'should cancelTaskRequest and fail': () => {
-    API.post.mockImplementation(() =>
-      Promise.reject(new Error('Network Error'))
-    );
-    return cancelTaskRequest('some-id', 'some-name');
-  },
-
   'should resumeTask': () => resumeTask({ ...taskInfo, url: 'some-url' }),
-  'should resumeTaskRequest and succeed': () => {
-    API.post.mockImplementation(() => ({ data: 'some-data' }));
-    return resumeTaskRequest('some-id', 'some-name');
-  },
-  'should resumeTaskRequest and fail': () => {
-    API.post.mockImplementation(() =>
-      Promise.reject(new Error('Network Error'))
-    );
-    return resumeTaskRequest('some-id', 'some-name');
-  },
   'handles bulkResume requests that fail': () => {
     const selected = [{ ...task, isResumable: true, isCancellable: false }];
 
