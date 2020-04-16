@@ -1,17 +1,6 @@
 import { addToast } from 'foremanReact/redux/actions/toasts';
 import { translate as __ } from 'foremanReact/common/I18n';
 import API from 'foremanReact/API';
-import {
-  FOREMAN_TASK_DETAILS_TOGGLE_UNLOCK_MODAL,
-  FOREMAN_TASK_DETAILS_TOGGLE_FORCE_UNLOCK_MODAL,
-} from './TaskActionsConstants';
-
-export const toggleUnlockModal = () => ({
-  type: FOREMAN_TASK_DETAILS_TOGGLE_UNLOCK_MODAL,
-});
-export const toggleForceUnlockModal = () => ({
-  type: FOREMAN_TASK_DETAILS_TOGGLE_FORCE_UNLOCK_MODAL,
-});
 
 export const resumeTaskRequest = (id, name) => async dispatch => {
   try {

@@ -4,6 +4,7 @@ import { startCase } from 'lodash';
 import { sprintf, translate as __ } from 'foremanReact/common/I18n';
 import { Button } from 'patternfly-react';
 import ForemanModal from 'foremanReact/components/ForemanModal';
+
 export const ConfirmModal = ({
   closeModal,
   actionText,
