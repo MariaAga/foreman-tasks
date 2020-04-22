@@ -3,24 +3,33 @@ import PropTypes from 'prop-types';
 import { translate as __ } from 'foremanReact/common/I18n';
 import { ActionButtons } from 'foremanReact/components/common/ActionButtons/ActionButtons';
 
-export const ActionButton = ({ id, name, availableActions, taskActions }) => {
+export const ActionButton = ({ id, name, availableActions, modalActions }) => {
   const isResume = availableActions.resumable;
   const isCancel = availableActions.cancellable;
   const buttons = [];
+
+  buttons.push({
+    title: __('Force Cancel'),
+    action: {
+      disabled: !isCancel,
+      onClick: () => modalActions.forceCancelTask(id, name),
+    },
+  });
+
   if (isResume) {
     buttons.push({
       title: __('Resume'),
       action: {
         disabled: !isResume,
-        onClick: () => taskActions.resumeTask(id, name),
+        onClick: () => modalActions.resumeTask(id, name),
       },
     });
-  } else {
+  } else if (isCancel) {
     buttons.push({
       title: __('Cancel'),
       action: {
         disabled: !isCancel,
-        onClick: () => taskActions.cancelTask(id, name),
+        onClick: () => modalActions.cancelTask(id, name),
       },
     });
   }
@@ -34,7 +43,7 @@ ActionButton.propTypes = {
     cancellable: PropTypes.bool,
     resumable: PropTypes.bool,
   }).isRequired,
-  taskActions: PropTypes.shape({
+  modalActions: PropTypes.shape({
     cancelTask: PropTypes.func,
     resumeTask: PropTypes.func,
     forceCancelTask: PropTypes.func,

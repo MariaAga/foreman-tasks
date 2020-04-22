@@ -4,11 +4,8 @@ import { Grid, Row, Col, Button } from 'patternfly-react';
 import { translate as __ } from 'foremanReact/common/I18n';
 import { useForemanModal } from 'foremanReact/components/ForemanModal/ForemanModalHooks';
 import TaskInfo from './TaskInfo';
-import {
-  UNLOCK_MODAL,
-  FORCE_UNLOCK_MODAL,
-} from '../../TaskActions/TaskActionsConstants';
-import { ForceUnlockModal, UnlockModal } from './UnlockModals';
+import { UNLOCK, FORCE_UNLOCK } from '../../TaskActions/TaskActionsConstants';
+import { ForceUnlockModal, UnlockModal } from '../../TaskActions/UnlockModals';
 
 const Task = props => {
   const taskProgressToggle = () => {
@@ -28,10 +25,10 @@ const Task = props => {
   };
 
   const unlockModalActions = useForemanModal({
-    id: UNLOCK_MODAL,
+    id: UNLOCK,
   });
   const forceUnlockModalActions = useForemanModal({
-    id: FORCE_UNLOCK_MODAL,
+    id: FORCE_UNLOCK,
   });
 
   const {
@@ -46,14 +43,27 @@ const Task = props => {
     parentTask,
     cancelTaskRequest,
     resumeTaskRequest,
+    forceCancelTaskRequest,
+    unlockTaskRequest,
     action,
     dynflowEnableConsole,
   } = props;
-
+  const forceUnlock = () => {
+    if (!taskReload) {
+      taskProgressToggle();
+    }
+    forceCancelTaskRequest(id, action);
+  };
+  const unlock = () => {
+    if (!taskReload) {
+      taskProgressToggle();
+    }
+    unlockTaskRequest(id, action);
+  };
   return (
     <React.Fragment>
-      <UnlockModal taskID={id} />
-      <ForceUnlockModal taskID={id} />
+      <UnlockModal onClick={unlock} />
+      <ForceUnlockModal onClick={forceUnlock} />
       <Grid>
         <Row>
           <Col xs={12}>

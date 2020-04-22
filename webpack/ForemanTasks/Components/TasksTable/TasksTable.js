@@ -8,6 +8,11 @@ import Pagination from 'foremanReact/components/Pagination/PaginationWrapper';
 import { getURIQuery } from 'foremanReact/common/helpers';
 import createTasksTableSchema from './TasksTableSchema';
 import { updateURlQuery } from './TasksTableHelpers';
+import {
+  RESUME,
+  CANCEL,
+  FORCE_UNLOCK,
+} from '../TaskActions/TaskActionsConstants';
 
 const TasksTable = ({
   getTableItems,
@@ -23,7 +28,7 @@ const TasksTable = ({
   selectRow,
   unselectRow,
   openClickedModal,
-  openModalAction,
+  openModal,
 }) => {
   const url = history.location.pathname + history.location.search;
   const uriQuery = getURIQuery(url);
@@ -80,19 +85,26 @@ const TasksTable = ({
     updateURlQuery({ sort_by: by, sort_order: order }, history);
   };
 
-  const taskActions = {
+  const modalActions = {
     cancelTask: (taskId, taskName) => {
       openClickedModal({
         taskId,
         taskName,
-        setModalOpen: openModalAction,
+        setModalOpen: () => openModal(CANCEL),
       });
     },
     resumeTask: (taskId, taskName) => {
       openClickedModal({
         taskId,
         taskName,
-        setModalOpen: openModalAction,
+        setModalOpen: () => openModal(RESUME),
+      });
+    },
+    forceCancelTask: (taskId, taskName) => {
+      openClickedModal({
+        taskId,
+        taskName,
+        setModalOpen: () => openModal(FORCE_UNLOCK),
       });
     },
   };
@@ -105,7 +117,7 @@ const TasksTable = ({
           setSortHistory,
           uriQuery.sort_by,
           uriQuery.sort_order,
-          taskActions,
+          modalActions,
           getSelectionController()
         )}
         rows={results}
@@ -139,7 +151,7 @@ TasksTable.propTypes = {
   unselectAllRows: PropTypes.func.isRequired,
   selectRow: PropTypes.func.isRequired,
   unselectRow: PropTypes.func.isRequired,
-  openModalAction: PropTypes.func.isRequired,
+  openModal: PropTypes.func.isRequired,
 };
 
 TasksTable.defaultProps = {

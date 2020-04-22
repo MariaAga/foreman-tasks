@@ -14,7 +14,11 @@ import {
   TASKS_RESUME_SUCCESS,
   TASKS_RESUME_FAILURE,
 } from './TasksTableConstants';
-import { cancelTaskRequest, resumeTaskRequest } from '../TaskActions';
+import {
+  cancelTaskRequest,
+  resumeTaskRequest,
+  forceCancelTaskRequest,
+} from '../TaskActions';
 import { getApiPathname } from './TasksTableHelpers';
 import { fetchTasksSummary } from '../TasksDashboard/TasksDashboardActions';
 
@@ -41,6 +45,17 @@ export const resumeTask = ({
   await dispatch(resumeTaskRequest(taskId, taskName));
   dispatch(getTableItems(url));
   dispatch(fetchTasksSummary(getURIQuery(url).time), parentTaskID);
+};
+
+export const forceCancelTask = ({
+  taskId,
+  taskName,
+  url,
+  parentTaskID,
+}) => async dispatch => {
+  await dispatch(forceCancelTaskRequest(taskId, taskName));
+  dispatch(getTableItems(url));
+  dispatch(fetchTasksSummary(getURIQuery(url).time, parentTaskID));
 };
 
 export const selectAllRows = results => ({

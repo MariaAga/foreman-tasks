@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'patternfly-react';
 import ForemanModal from 'foremanReact/components/ForemanModal';
+import { useForemanModal } from 'foremanReact/components/ForemanModal/ForemanModalHooks';
 
 export const ClickConfirmation = ({
   title,
@@ -9,10 +10,14 @@ export const ClickConfirmation = ({
   body,
   confirmationMessage,
   id,
-  path,
   confirmAction,
+  onClick,
 }) => {
-  const [disableConfirm, setDisableConfirm] = useState(true);
+  const [isConfirm, setIsConfirm] = useState(true);
+  const { modalOpen, setModalClosed } = useForemanModal({
+    id,
+  });
+  useEffect(() => setIsConfirm(false), [modalOpen]);
   const icon = confirmType === 'warning' ? confirmType : 'exclamation';
   return (
     <ForemanModal id={id}>
@@ -24,18 +29,21 @@ export const ClickConfirmation = ({
       <div>
         <input
           onChange={e => {
-            setDisableConfirm(!e.target.checked);
+            setIsConfirm(e.target.checked);
           }}
           type="checkbox"
+          checked={isConfirm}
         />
         {` ${confirmationMessage}`}
       </div>
       <ForemanModal.Footer>
         <Button
-          href={path}
-          data-method="post"
+          onClick={() => {
+            onClick();
+            setModalClosed();
+          }}
           bsStyle={confirmType}
-          disabled={disableConfirm}
+          disabled={!isConfirm}
         >
           {confirmAction}
         </Button>
@@ -49,7 +57,7 @@ ClickConfirmation.propTypes = {
   body: PropTypes.string.isRequired,
   confirmationMessage: PropTypes.string.isRequired,
   confirmAction: PropTypes.string.isRequired,
-  path: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
   confirmType: PropTypes.oneOf(['warning', 'danger']),
   id: PropTypes.string.isRequired,
 };

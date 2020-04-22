@@ -12,16 +12,16 @@ import TasksDashboard from '../TasksDashboard';
 import TasksTable from './TasksTable';
 import { resolveSearchQuery, addSearchToURL } from './TasksTableHelpers';
 import { ConfirmationModals } from './Components/ConfirmationModals';
+import { TASKS_SEARCH_PROPS, CONFIRM_MODAL } from './TasksTableConstants';
+import { ActionSelectButton } from './Components/ActionSelectButton';
+import './TasksTablePage.scss';
 import {
-  TASKS_SEARCH_PROPS,
   CANCEL_SELECTED,
   RESUME_SELECTED,
   RESUME,
   CANCEL,
-  CONFIRM_MODAL,
-} from './TasksTableConstants';
-import { ActionSelectButton } from './Components/ActionSelectButton';
-import './TasksTablePage.scss';
+  FORCE_UNLOCK,
+} from '../TaskActions/TaskActionsConstants';
 
 const TasksTablePage = ({
   getBreadcrumbs,
@@ -55,6 +55,7 @@ const TasksTablePage = ({
     bulkResume,
     cancelTask,
     resumeTask,
+    forceCancelTask,
     parentTaskID,
   } = props;
   const tasksActions = {
@@ -80,14 +81,20 @@ const TasksTablePage = ({
         parentTaskID,
       });
     },
+    [FORCE_UNLOCK]: () => {
+      forceCancelTask({
+        taskId: clicked.taskId,
+        taskName: clicked.taskName,
+        url,
+        parentTaskID,
+      });
+    },
   };
 
   const { setModalOpen, setModalClosed } = useForemanModal({
     id: CONFIRM_MODAL,
   });
-  const openModal = id => {
-    openModalAction(id, setModalOpen);
-  };
+  const openModal = id => openModalAction(id, setModalOpen);
 
   return (
     <div className="tasks-table-wrapper">
@@ -124,7 +131,7 @@ const TasksTablePage = ({
           <TasksDashboard history={history} parentTaskID={props.parentTaskID} />
         }
       >
-        <TasksTable history={history} {...props} openModalAction={openModal} />
+        <TasksTable history={history} {...props} openModal={openModal} />
       </PageLayout>
     </div>
   );
