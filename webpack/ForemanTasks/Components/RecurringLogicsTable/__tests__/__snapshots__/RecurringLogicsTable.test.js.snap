@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RecurringLogicsTable rendering render pending 1`] = `
+<Spinner
+  className=""
+  inline={false}
+  inverse={false}
+  loading={true}
+  size="lg"
+/>
+`;
+
+exports[`RecurringLogicsTable rendering render with error Props 1`] = `
+<MessageBox
+  icontype="error-circle-o"
+  key="tasks-table-error"
+  msg="Could not receive data: some error message"
+/>
+`;
+
+exports[`RecurringLogicsTable rendering render with no Props 1`] = `
+<span>
+  No Recurring Logics
+</span>
+`;
+
+exports[`RecurringLogicsTable rendering render with no recurringLogics 1`] = `
+<span>
+  No Recurring Logics
+</span>
+`;
+
+exports[`RecurringLogicsTable rendering render with recurringLogics 1`] = `
+<div
+  className="tasks-table"
+>
+  <Table
+    key="tasks-table"
+    rows={
+      Array [
+        Object {
+          "logic": 1,
+        },
+      ]
+    }
+  />
+</div>
+`;

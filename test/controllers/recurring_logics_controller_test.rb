@@ -4,7 +4,6 @@ require 'foreman_tasks_test_helper'
 module ForemanTasks
   class RecurringLogicsControllerTest < ActionController::TestCase
     describe ForemanTasks::RecurringLogicsController do
-      basic_index_test('recurring_logics')
       basic_pagination_per_page_test
 
       # rubocop:disable Naming/AccessorMethodName

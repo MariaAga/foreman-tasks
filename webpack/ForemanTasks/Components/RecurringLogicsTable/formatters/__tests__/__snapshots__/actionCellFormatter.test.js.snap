@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`actionCellFormatter render active 1`] = `
+<ActionButtons
+  buttons={
+    Array [
+      Object {
+        "action": Object {
+          "data-method": "put",
+          "href": "/foreman_tasks/recurring_logics/1/disable",
+          "id": "disable-button-1",
+          "rel": "nofollow",
+        },
+        "title": "Disable",
+      },
+      Object {
+        "action": Object {
+          "data-method": "post",
+          "href": "/foreman_tasks/recurring_logics/1/cancel",
+          "id": "cancel-button-1",
+          "rel": "nofollow",
+        },
+        "title": "Cancel",
+      },
+    ]
+  }
+/>
+`;
+
+exports[`actionCellFormatter render cancelled 1`] = `
+<ActionButtons
+  buttons={Array []}
+/>
+`;
+
+exports[`actionCellFormatter render disabled 1`] = `
+<ActionButtons
+  buttons={
+    Array [
+      Object {
+        "action": Object {
+          "data-method": "put",
+          "href": "/foreman_tasks/recurring_logics/1/enable",
+          "id": "enable-button-1",
+          "rel": "nofollow",
+        },
+        "title": "Enable",
+      },
+      Object {
+        "action": Object {
+          "data-method": "post",
+          "href": "/foreman_tasks/recurring_logics/1/cancel",
+          "id": "cancel-button-1",
+          "rel": "nofollow",
+        },
+        "title": "Cancel",
+      },
+    ]
+  }
+/>
+`;
+
+exports[`actionCellFormatter render finished 1`] = `
+<ActionButtons
+  buttons={Array []}
+/>
+`;
+
+exports[`actionCellFormatter render no edit 1`] = `
+<ActionButtons
+  buttons={Array []}
+/>
+`;

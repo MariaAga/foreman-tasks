@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RecurringLogicsTableSelectors selectResults 1`] = `
+Array [
+  Object {
+    "TaskGroupId": 123,
+    "action": "Run hosts job: Run n",
+    "canEdit": true,
+    "cronLine": "51 17 * * *",
+    "currentIteration": 1,
+    "id": 63,
+    "iterationLimit": 3,
+    "lastOccurrence": "-",
+    "nextOccurrence": "-",
+    "repeatUntil": null,
+    "state": "cancelled",
+    "taskCount": 1,
+  },
+]
+`;

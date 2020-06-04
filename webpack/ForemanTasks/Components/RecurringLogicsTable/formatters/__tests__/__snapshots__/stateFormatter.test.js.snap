@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`stateFormatter render active 1`] = `
+<React.Fragment>
+  <i
+    className="glyphicon glyphicon-info-sign"
+  />
+  <span>
+    Active
+  </span>
+</React.Fragment>
+`;
+
+exports[`stateFormatter render cancelled 1`] = `
+<React.Fragment>
+  <i
+    className="glyphicon glyphicon-warning-sign"
+  />
+  <span
+    className="status-error"
+  >
+    Cancelled
+  </span>
+</React.Fragment>
+`;
+
+exports[`stateFormatter render disabled 1`] = `
+<React.Fragment>
+  <i
+    className="glyphicon glyphicon-pause"
+  />
+  <span>
+    Disabled
+  </span>
+</React.Fragment>
+`;
+
+exports[`stateFormatter render finished 1`] = `
+<React.Fragment>
+  <i
+    className="glyphicon glyphicon-ok-sign"
+  />
+  <span
+    className="status-ok"
+  >
+    Finished
+  </span>
+</React.Fragment>
+`;
