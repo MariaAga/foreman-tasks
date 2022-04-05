@@ -8,21 +8,22 @@ import { translate as __ } from 'foremanReact/common/I18n';
 import { getURIQuery } from 'foremanReact/common/helpers';
 import ExportButton from 'foremanReact/routes/common/PageLayout/components/ExportButton/ExportButton';
 import { STATUS } from 'foremanReact/constants';
-import { useForemanModal } from 'foremanReact/components/ForemanModal/ForemanModalHooks';
 import TasksDashboard from '../TasksDashboard';
 import TasksTable from './TasksTable';
 import { getCSVurl, updateURlQuery } from './TasksTableHelpers';
-import ConfirmModal from './Components/ConfirmModal/';
 import {
   TASKS_SEARCH_PROPS,
   CANCEL_SELECTED_MODAL,
   RESUME_SELECTED_MODAL,
   FORCE_UNLOCK_SELECTED_MODAL,
-  CONFIRM_MODAL,
 } from './TasksTableConstants';
 import { ActionSelectButton } from './Components/ActionSelectButton';
 import './TasksTablePage.scss';
 import { SelectAllAlert } from './Components/SelectAllAlert';
+import {
+  useOpenModal,
+  useOpenConfirmModal,
+} from './Components/ConfirmModal/action';
 
 const TasksTablePage = ({
   getBreadcrumbs,
@@ -49,21 +50,24 @@ const TasksTablePage = ({
     }
   };
 
-  const { setModalOpen, setModalClosed } = useForemanModal({
-    id: CONFIRM_MODAL,
+  const {
+    [CANCEL_SELECTED_MODAL]: onCancel,
+    [RESUME_SELECTED_MODAL]: onResume,
+  } = useOpenModal({
+    url,
+    parentTaskID: props.parentTaskID,
+    uriQuery,
   });
 
-  const openModal = id => openModalAction(id, setModalOpen);
-
+  const {
+    [FORCE_UNLOCK_SELECTED_MODAL]: openForceCancelModal,
+  } = useOpenConfirmModal({
+    url,
+    parentTaskID: props.parentTaskID,
+    query: uriQuery,
+  });
   return (
     <div className="tasks-table-wrapper">
-      <ConfirmModal
-        id={CONFIRM_MODAL}
-        url={url}
-        parentTaskID={props.parentTaskID}
-        uriQuery={uriQuery}
-        setModalClosed={setModalClosed}
-      />
       <PageLayout
         searchable
         searchProps={TASKS_SEARCH_PROPS}
@@ -85,9 +89,9 @@ const TasksTablePage = ({
                 !props.permissions.edit ||
                 !(props.selectedRows.length || props.allRowsSelected)
               }
-              onCancel={() => openModal(CANCEL_SELECTED_MODAL)}
-              onResume={() => openModal(RESUME_SELECTED_MODAL)}
-              onForceCancel={() => openModal(FORCE_UNLOCK_SELECTED_MODAL)}
+              onCancel={onCancel}
+              onResume={onResume}
+              onForceCancel={openForceCancelModal}
             />
           </React.Fragment>
         }
@@ -108,7 +112,7 @@ const TasksTablePage = ({
                 allRowsSelected={props.allRowsSelected}
               />
             )}
-          <TasksTable history={history} {...props} openModal={openModal} />
+          <TasksTable history={history} {...props} />
         </React.Fragment>
       </PageLayout>
     </div>

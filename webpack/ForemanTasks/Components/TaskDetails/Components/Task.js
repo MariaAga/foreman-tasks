@@ -3,6 +3,8 @@ import { Grid, Row } from 'patternfly-react';
 import TaskInfo from './TaskInfo';
 import { ForceUnlockModal, UnlockModal } from '../../TaskActions/UnlockModals';
 import { TaskButtons } from './TaskButtons';
+// import { useOpenConfirmModal } from '../../TasksTable/Components/ConfirmModal/action';
+
 
 const Task = props => {
   const {
@@ -25,6 +27,12 @@ const Task = props => {
     }
     unlockTaskRequest(id, action);
   };
+  // const { [FORCE_UNLOCK_MODAL]: openForceCancelModal } = useOpenConfirmModal({
+  //   url,
+  //   parentTaskID,
+  //   query: uriQuery,
+  // });
+
   return (
     <React.Fragment>
       <UnlockModal onClick={unlock} />

@@ -10,6 +10,10 @@ import createTasksTableSchema from './TasksTableSchema';
 import { updateURlQuery } from './TasksTableHelpers';
 import { RESUME_MODAL, CANCEL_MODAL } from './TasksTableConstants';
 import { FORCE_UNLOCK_MODAL } from '../TaskActions/TaskActionsConstants';
+import {
+  useOpenModal,
+  useOpenConfirmModal,
+} from './Components/ConfirmModal/action';
 
 const TasksTable = ({
   getTableItems,
@@ -24,14 +28,27 @@ const TasksTable = ({
   selectRow,
   unselectRow,
   openClickedModal,
-  openModal,
   allRowsSelected,
   permissions,
+  parentTaskID,
 }) => {
   const { search, pathname } = history.location;
   const url = pathname + search;
   const uriQuery = getURIQuery(url);
 
+  const {
+    [CANCEL_MODAL]: openCancelModal,
+    [RESUME_MODAL]: openResumeModal,
+  } = useOpenModal({
+    url,
+    parentTaskID,
+    query: uriQuery,
+  });
+  const { [FORCE_UNLOCK_MODAL]: openForceCancelModal } = useOpenConfirmModal({
+    url,
+    parentTaskID,
+    query: uriQuery,
+  });
   useEffect(() => {
     getTableItems(url);
   }, [getTableItems, url]);
@@ -90,21 +107,21 @@ const TasksTable = ({
       openClickedModal({
         taskId,
         taskName,
-        setModalOpen: () => openModal(CANCEL_MODAL),
+        setModalOpen: openCancelModal,
       });
     },
     resumeTask: (taskId, taskName) => {
       openClickedModal({
         taskId,
         taskName,
-        setModalOpen: () => openModal(RESUME_MODAL),
+        setModalOpen: openResumeModal,
       });
     },
     forceCancelTask: (taskId, taskName) => {
       openClickedModal({
         taskId,
         taskName,
-        setModalOpen: () => openModal(FORCE_UNLOCK_MODAL),
+        setModalOpen: openForceCancelModal,
       });
     },
   };
@@ -140,7 +157,6 @@ TasksTable.propTypes = {
   unselectAllRows: PropTypes.func.isRequired,
   selectRow: PropTypes.func.isRequired,
   unselectRow: PropTypes.func.isRequired,
-  openModal: PropTypes.func.isRequired,
   allRowsSelected: PropTypes.bool,
   permissions: PropTypes.shape({
     edit: PropTypes.bool,

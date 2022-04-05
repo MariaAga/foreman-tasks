@@ -32,13 +32,6 @@ export const selectSelectedTasks = state => {
 };
 
 export const selectSelectedRowsLen = state => {
-  if (
-    [CANCEL_MODAL, RESUME_MODAL, FORCE_UNLOCK_MODAL].includes(
-      selectActionType(state)
-    )
-  ) {
-    return 1;
-  }
   if (selectAllRowsSelected(state)) {
     return selectItemCount(state);
   }
