@@ -22,6 +22,10 @@
     "@theforeman/vendor": ">= 12.1.1"
   },
   "dependencies": {
+    "@scalprum/react-core": "^0.9.3",
+    "@redhat-cloud-services/frontend-components": "3.8.12",
+    "@redhat-cloud-services/frontend-components-utilities": "^3.7.6",
+    "@scalprum/core": "^0.8.1",
     "c3": "^0.4.11"
   },
   "devDependencies": {
@@ -36,6 +40,7 @@
     "prettier": "^1.13.5",
     "stylelint": "^9.3.0",
     "stylelint-config-standard": "^18.0.0",
-    "surge": "^0.20.3"
+    "surge": "^0.20.3",
+    "unleash-proxy-client": "^3.7.3"
   }
 }

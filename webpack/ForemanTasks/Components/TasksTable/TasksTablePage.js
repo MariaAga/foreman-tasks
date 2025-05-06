@@ -23,6 +23,7 @@ import {
 import { ActionSelectButton } from './Components/ActionSelectButton';
 import './TasksTablePage.scss';
 import { SelectAllAlert } from './Components/SelectAllAlert';
+import { Dot } from './dot' ;
 
 const TasksTablePage = ({
   getBreadcrumbs,
@@ -57,6 +58,7 @@ const TasksTablePage = ({
 
   return (
     <div className="tasks-table-wrapper">
+      <Dot />
       <ConfirmModal
         id={CONFIRM_MODAL}
         url={url}
